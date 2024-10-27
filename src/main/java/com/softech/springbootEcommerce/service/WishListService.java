@@ -1,5 +1,6 @@
 package com.softech.springbootEcommerce.service;
 
+import com.softech.springbootEcommerce.dto.ProductDTO;
 import com.softech.springbootEcommerce.model.WishList;
 import com.softech.springbootEcommerce.repository.WishListRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,10 @@ public class WishListService {
     @Autowired
     private WishListRepository wishListRepository;
 
+    public List<ProductDTO> getAllWishListProduct(long customerId){
+        List<ProductDTO> productDTOList = wishListRepository.findProductByCustomerId(customerId);
+        return productDTOList;
+    }
     public boolean updateWishList(long userId,long productId){
         List<WishList> wishListItem = wishListRepository.findByUserIdAndProductId(userId,productId);
         if(wishListItem.isEmpty()){
