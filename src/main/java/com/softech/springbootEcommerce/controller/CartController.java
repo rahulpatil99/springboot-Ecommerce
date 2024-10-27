@@ -46,7 +46,7 @@ public class CartController {
 
     @GetMapping("/count")
     public ResponseEntity<Integer> getCartCount(@RequestParam long userId){
-        int count = cartService.getCartCount(userId);
+        Integer count = cartService.getCartCount(userId);
         return ResponseEntity.ok(count);
     }
 

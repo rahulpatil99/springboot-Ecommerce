@@ -48,9 +48,9 @@ public class CartService {
         }
     }
 
-    public int getCartCount(long userId){
-        List<Cart> carts = cartRepository.findByUserId(userId);
-        return carts.size();
+    public Integer getCartCount(long userId){
+        return cartRepository.findByUserId(userId);
+        //return carts.size();
     }
 
     public boolean updateQuantity(Cart cart){

@@ -20,6 +20,9 @@ public interface CartRepository extends JpaRepository<Cart,Integer> {
 
     List<Cart> findByUserIdAndProductId(long userId,long productId);
 
-    List<Cart> findByUserId(long userId);
+    @Query("SELECT SUM(quantity) AS productCount " +
+            "FROM Cart " +
+            "WHERE userId=:userId")
+    Integer findByUserId(@Param("userId") long userId);
 
 }
