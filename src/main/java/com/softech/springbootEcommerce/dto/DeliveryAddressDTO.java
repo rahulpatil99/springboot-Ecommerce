@@ -1,14 +1,6 @@
-package com.softech.springbootEcommerce.model;
+package com.softech.springbootEcommerce.dto;
 
-import jakarta.persistence.*;
-import org.hibernate.annotations.CreationTimestamp;
-
-import java.util.Date;
-
-@Entity
-public class DeliveryAddress {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class DeliveryAddressDTO {
     private long deliveryAddressId;
     private long customerId;
     private String fullName;
@@ -18,11 +10,21 @@ public class DeliveryAddress {
     private String city;
     private String address;
     private String addressType;
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_on", updatable = false)
-    @CreationTimestamp // Automatically sets the current date on insert
-    private Date createdOn;
-    private boolean isDeleted = false;
+
+    public DeliveryAddressDTO() {
+    }
+
+    public DeliveryAddressDTO(long deliveryAddressId, long customerId, String fullName, String mobileNumber, long pinCode, String state, String city, String address, String addressType) {
+        this.deliveryAddressId = deliveryAddressId;
+        this.customerId = customerId;
+        this.fullName = fullName;
+        this.mobileNumber = mobileNumber;
+        this.pinCode = pinCode;
+        this.state = state;
+        this.city = city;
+        this.address = address;
+        this.addressType = addressType;
+    }
 
     public long getDeliveryAddressId() {
         return deliveryAddressId;
@@ -94,21 +96,5 @@ public class DeliveryAddress {
 
     public void setAddressType(String addressType) {
         this.addressType = addressType;
-    }
-
-    public Date getCreatedOn() {
-        return createdOn;
-    }
-
-    public void setCreatedOn(Date createdOn) {
-        this.createdOn = createdOn;
-    }
-
-    public boolean isDeleted() {
-        return isDeleted;
-    }
-
-    public void setDeleted(boolean deleted) {
-        isDeleted = deleted;
     }
 }
