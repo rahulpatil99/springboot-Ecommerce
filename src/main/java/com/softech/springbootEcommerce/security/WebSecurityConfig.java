@@ -33,7 +33,7 @@ public class WebSecurityConfig {
                 .csrf().disable() // Disables CSRF for development; consider enabling in production
                 .authorizeRequests()
                 .requestMatchers("/authentication/**").permitAll()  // Allows public access to all endpoints
-                .requestMatchers("/product/getAll/**").permitAll()
+                .requestMatchers("/product/getAll").permitAll()
                 .anyRequest().authenticated()
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
