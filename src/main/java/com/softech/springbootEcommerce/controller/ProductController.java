@@ -15,6 +15,13 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
+    @GetMapping("/getAll")
+    public ResponseEntity<List<Product>> getAllProducts(){
+
+        List<Product> productList = productService.getAllProducts();
+        return ResponseEntity.ok(productList);
+    }
+
     @GetMapping("/getAll/{id}")
     public ResponseEntity<List<ProductDTO>> getAllProducts(@PathVariable long id){
 
