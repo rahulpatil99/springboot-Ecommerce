@@ -15,7 +15,13 @@ public class ProductOrder {
     private long customerId;
     private long productId;
     private long deliveryAddressId;
+    private double listPrice;
+    private double sellingPrince;
+    private double discount;
+    private int rating;
+    private String comment;
     private Date createdOn;
+
     private boolean isDeleted = false;
 
     public long getProductOrderId() {
@@ -48,6 +54,46 @@ public class ProductOrder {
 
     public void setDeliveryAddressId(long deliveryAddressId) {
         this.deliveryAddressId = deliveryAddressId;
+    }
+
+    public double getListPrice() {
+        return listPrice;
+    }
+
+    public void setListPrice(double listPrice) {
+        this.listPrice = listPrice;
+    }
+
+    public double getSellingPrince() {
+        return sellingPrince;
+    }
+
+    public void setSellingPrince(double sellingPrince) {
+        this.sellingPrince = sellingPrince;
+    }
+
+    public double getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(double discount) {
+        this.discount = discount;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public Date getCreatedOn() {
