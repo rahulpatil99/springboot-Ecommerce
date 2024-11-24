@@ -17,23 +17,41 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/authentication")
 public class AuthenticationController {
+
     @Autowired
     private AuthenticationManager authenticationManager;
 
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
-    @PostMapping("/token")
-    public ResponseEntity<?> createJWTToken(@RequestBody AuthenticationRequestDTO authenticationRequestDTO) throws Exception{
-        try{
-            authenticationManager.authenticate( new UsernamePasswordAuthenticationToken(authenticationRequestDTO.getUsername(),authenticationRequestDTO.getPassword()));
-        }
-        catch(Exception e){
-            throw new Exception("Incorrect username and password");
-        }
-        MyUserDetailsService myUserDetailsService = new MyUserDetailsService();
 
-        final UserDetails userDetails = myUserDetailsService.loadUserByUsername(authenticationRequestDTO.getUsername());
-        final String jwtToken = jwtTokenUtil.generateToken(userDetails);
-        return ResponseEntity.ok(new AuthenticationResponseDTO(jwtToken));
+    @Autowired
+    private MyUserDetailsService myUserDetailsService;
+
+    @PostMapping("/token")
+    public ResponseEntity<?> createJWTToken(@RequestBody AuthenticationRequestDTO authenticationRequestDTO) {
+        try {
+            // Authenticate user
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            authenticationRequestDTO.getUsername(),
+                            authenticationRequestDTO.getPassword()
+                    )
+            );
+
+            // Load user details
+            UserDetails userDetails = myUserDetailsService.loadUserByUsername(authenticationRequestDTO.getUsername());
+
+            // Generate JWT token
+            String jwtToken = jwtTokenUtil.generateToken(userDetails);
+
+            // Return token
+            return ResponseEntity.ok(new AuthenticationResponseDTO(jwtToken));
+        } catch (org.springframework.security.authentication.BadCredentialsException e) {
+            // Handle invalid credentials
+            return ResponseEntity.status(401).body("Invalid username or password");
+        } catch (Exception e) {
+            // Handle general exceptions
+            return ResponseEntity.status(500).body("An error occurred while processing the request: " + e.getMessage());
+        }
     }
 }

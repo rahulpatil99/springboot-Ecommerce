@@ -34,6 +34,7 @@ public class WebSecurityConfig {
                 .authorizeRequests()
                 .requestMatchers("/authentication/**").permitAll()  // Allows public access to all endpoints
                 .requestMatchers("/product/getAll").permitAll()
+                .requestMatchers("/product/details/**").permitAll()
                 .anyRequest().authenticated()
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
